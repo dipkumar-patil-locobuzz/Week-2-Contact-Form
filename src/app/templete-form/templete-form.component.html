@@ -1,0 +1,44 @@
+<div class="form-container">
+  <h2>Contact Form</h2>
+  <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef)">
+    <!-- Name -->
+    <label>Name:</label>
+    <input type="text" name="name" required [(ngModel)]="user.name" #nameRef="ngModel" />
+    <div class="error" *ngIf="nameRef.invalid && nameRef.touched">Name is required</div>
+
+    <!-- Email -->
+    <label>Email:</label>
+    <input type="email" name="email" required [(ngModel)]="user.email" #emailRef="ngModel" />
+    <div class="error" *ngIf="emailRef.invalid && emailRef.touched">Valid email is required</div>
+
+    <!-- Salary -->
+    <label>Salary:</label>
+    <input type="number" name="salary" [(ngModel)]="user.salary" />
+
+    <!-- Experience -->
+    <label>Experience (years):</label>
+    <input type="number" name="experience" [(ngModel)]="user.experience" />
+
+    <!-- Join Date -->
+    <label>Joining Date:</label>
+    <input type="date" name="joinDate" [(ngModel)]="user.joinDate" />
+
+    <button type="submit" [disabled]="formRef.invalid">Submit</button>
+  </form>
+
+  <!-- Display Summary -->
+  <div *ngIf="submitted">
+    <h3>Employee Summary</h3>
+    <p><strong>Name:</strong> {{ user.name | titlecase }}</p>
+    <p><strong>Email:</strong> {{ user.email | lowercase }}</p>
+
+    <p><strong>Salary:</strong> {{ user.salary | currency:'INR' }}</p>
+    <p><strong>Experience:</strong> {{ user.experience | number:'1.0-1' }} years</p>
+    <p><strong>Joining Date:</strong> {{ user.joinDate | date:'fullDate' }}</p>
+
+    <h4>Raw Data (JSON):</h4>
+    <pre>{{ user | json }}</pre>
+
+    <p><strong>Submitted At:</strong> {{ submittedDate | date:'short' }}</p>
+  </div>
+</div>
