@@ -1,0 +1,49 @@
+<div class="form-container">
+  <h2>Contact Form (Reactive)</h2>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <label>Name:</label>
+    <input type="text" formControlName="name" />
+    <div class="error" *ngIf="userForm.get('name')?.touched && userForm.get('name')?.invalid">
+      Name is required
+    </div>
+
+    <!-- Email -->
+    <label>Email:</label>
+    <input type="email" formControlName="email" />
+    <div class="error" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
+      Valid email is required
+    </div>
+
+    <!-- Salary -->
+    <label>Salary:</label>
+    <input type="number" formControlName="salary" />
+
+    <!-- Experience -->
+    <label>Experience (years):</label>
+    <input type="number" formControlName="experience" />
+
+    <!-- Join Date -->
+    <label>Joining Date:</label>
+    <input type="date" formControlName="joinDate" />
+
+    <button type="submit" [disabled]="userForm.invalid">Submit</button>
+  </form>
+
+  <!-- Display Summary -->
+  <div *ngIf="submitted">
+    <h3>Employee Summary</h3>
+    <p><strong>Name:</strong> {{ user.name | titlecase }}</p>
+    <p><strong>Email:</strong> {{ user.email | lowercase }}</p>
+
+    <p><strong>Salary:</strong> {{ user.salary | currency:'INR' }}</p>
+    <p><strong>Experience:</strong> {{ user.experience | number:'1.0-1' }} years</p>
+    <p><strong>Joining Date:</strong> {{ user.joinDate | date:'fullDate' }}</p>
+
+    <h4>Raw Data (JSON):</h4>
+    <pre>{{ user | json }}</pre>
+
+    <p><strong>Submitted At:</strong> {{ submittedDate | date:'short' }}</p>
+  </div>
+</div>
